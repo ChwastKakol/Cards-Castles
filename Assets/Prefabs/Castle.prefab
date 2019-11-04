@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 3955418741620836586}
   - component: {fileID: 3955418741620836501}
   - component: {fileID: 3955418741620836500}
+  - component: {fileID: 2056472898}
   m_Layer: 0
   m_Name: Castle
   m_TagString: Untagged
@@ -80,8 +81,6 @@ MonoBehaviour:
   layerLimits: 
   radialOffset: 1.5
   radialCoefficient: 1
-  card: {fileID: 0}
-  isCarringCard: 0
 --- !u!114 &3955418741620836500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,9 +94,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 4200286120871664518, guid: 2c0c81179ace7164a87fcac35a81e75f, type: 3}
-  deck: []
   goldDisplay: {fileID: 0}
   cameraTransform: {fileID: 4192530220177356349}
+--- !u!114 &2056472898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3955418741620836587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444ae509edb6cff4da60fdc0b05b92db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cards: []
+  card: {fileID: 4200286120871664518, guid: 2c0c81179ace7164a87fcac35a81e75f, type: 3}
 --- !u!1001 &3955418743316708538
 PrefabInstance:
   m_ObjectHideFlags: 0

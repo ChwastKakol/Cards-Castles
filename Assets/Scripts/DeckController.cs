@@ -12,7 +12,7 @@ public class DeckController : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            cards[i] = card;
+            cards.Add(card);
         }
     }
 
@@ -20,10 +20,12 @@ public class DeckController : MonoBehaviour
     {
         if (cards.Count != 0)
         {
+            Debug.Log("Returning Card");
             GameObject card = cards[cards.Count - 1];
             cards.RemoveAt(cards.Count - 1);
             return card;
         }
+        Debug.Log("Out of Cards");
         return null;
     }
 }

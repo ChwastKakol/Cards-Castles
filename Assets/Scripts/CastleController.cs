@@ -15,9 +15,9 @@ public class CastleController : MonoBehaviour
 
     public List<List<GameObject>> layers = new List<List<GameObject>>();
 
-    public GameObject card;
-    private GameObject[] allCards;
-    public bool isCarringCard = false;
+    //public GameObject card;
+    //private GameObject[] allCards;
+    //public bool isCarringCard = false;
     
     void Start()
     {
@@ -32,8 +32,8 @@ public class CastleController : MonoBehaviour
             }
         }
 
-        allCards = GameObject.FindGameObjectsWithTag("Card");
-        card = null;
+        //allCards = GameObject.FindGameObjectsWithTag("Card");
+        //card = null;
     }
 
     private void Update()
@@ -110,7 +110,7 @@ public class CastleController : MonoBehaviour
         return min + .3f * (linearPosition - min);
     }
 
-    GameObject findAttackedCard(GameObject attacker, float distanceThreshold)
+    /*GameObject findAttackedCard(GameObject attacker, float distanceThreshold)
     {
         GameObject closestCard = null;
 
@@ -125,5 +125,5 @@ public class CastleController : MonoBehaviour
         }
         
         return closestCard;
-    }
+    }*/
 }

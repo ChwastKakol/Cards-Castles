@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager;
     private DeckController deckController;
     
+    private List<CardController> cardsOnTheTable = new List<CardController>();
+    
     int gold = 100;
     // Update is called once per frame
 
@@ -23,35 +25,17 @@ public class PlayerController : MonoBehaviour
         deckController = GetComponent<DeckController>();
     }
 
-    void Update()
-    {
-        /*if (myTurn)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                GameObject newCard = Instantiate(card, new Vector3(4, 1, 0), Quaternion.identity, transform);
-                deck.Add(newCard);
-                newCard.GetComponent<CardController>().SetUp();
-            }
-
-            UpdateGoldDisplay();
-
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                for (int i = 0; i < deck.Count; i++)
-                {
-                    deck[i].GetComponent<CardController>().RoundlyCost();
-                }
-            }
-        }*/
-    }   
-
     public void Turn()
     {
         UpdateGoldDisplay();
         if (Input.GetKeyUp(KeyCode.T))
         {
             gameManager.SwapTurn();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            StartCoroutine(DrawCard());
         }
     }
 
@@ -72,14 +56,30 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator DrawCard()
     {
+        Debug.Log("Started Courutine");
         GameObject card = deckController.DrawCardFromTop();
         if (!card.Equals(null))
         {
-            while (Input.GetMouseButtonUp(1))                         //carry card until its placed
+            GameObject cardInstance = Instantiate(card, transform);
+            cardInstance.transform.localPosition = Vector3.zero;
+            cardInstance.transform.localRotation = Quaternion.identity;
+            
+            while (!Input.GetMouseButtonUp(1))                         //carry card until its placed
             {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit raycastHit;
+                Physics.Raycast(ray, out raycastHit, 100.0f, LayerMask.GetMask("GameBoard"));
+                Vector3 hit = raycastHit.point;
+                hit.y = 1.0f;
+                card.transform.position = hit;
+
                 yield return null;
             }
+            
+            cardsOnTheTable.Add(cardInstance.GetComponent<CardController>());
+            cardInstance.GetComponent<CardController>().SetUp();
         }
+        Debug.Log("Finished Courutine");
         //yield break;
     }
 }

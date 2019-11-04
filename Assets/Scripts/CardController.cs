@@ -25,7 +25,7 @@ public class CardController : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyUp(KeyCode.A) && !cardToAttack.Equals(null)) Attack(cardToAttack);
+        //if(Input.GetKeyUp(KeyCode.A) && !cardToAttack.Equals(null)) Attack(cardToAttack);
     }
 
     public void Attack(CardController other)
@@ -56,9 +56,9 @@ public class CardController : MonoBehaviour
         // Later might depend on placement and special skills / powers
         
         GetComponentInParent<PlayerController>().ReduceGold(setupCost);
-        CastleController castleController = GetComponentInParent<CastleController>();
+        /*CastleController castleController = GetComponentInParent<CastleController>();
         castleController.isCarringCard = true;
-        castleController.card = gameObject;
+        castleController.card = gameObject;*/
     }
 
     public void RoundlyCost()
