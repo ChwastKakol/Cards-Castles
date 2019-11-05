@@ -16,16 +16,19 @@ public class DeckController : MonoBehaviour
         }
     }
 
+    public bool HasCards()
+    {
+        return (cards.Count != 0);
+    }
+    
     public GameObject DrawCardFromTop()
     {
         if (cards.Count != 0)
         {
-            Debug.Log("Returning Card");
             GameObject card = cards[cards.Count - 1];
             cards.RemoveAt(cards.Count - 1);
             return card;
         }
-        Debug.Log("Out of Cards");
         return null;
     }
 }

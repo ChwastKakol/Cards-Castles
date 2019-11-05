@@ -90,7 +90,7 @@ public class CastleController : MonoBehaviour
         return cylinder;
     }
 
-    Vector3 GetPosition(Vector3 linearPosition, out Vector3 minimum, out int layer, out int position)
+    public Vector3 GetPosition(Vector3 linearPosition, out Vector3 minimum, out int layer, out int position)
     {
         float radious = (linearPosition - transform.position).magnitude;
         layer = Math.Min((int)((radious - radialOffset) / radialCoefficient), nrLayers-1);

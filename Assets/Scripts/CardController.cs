@@ -10,7 +10,8 @@ public class CardController : MonoBehaviour
     public int HP = 2;
     public int setupCost = 1;
     public int costPerRound = 1;
-
+    public int production = 1;
+    
     public int position, layer;
     public int[] availableLayers;
 
@@ -66,7 +67,7 @@ public class CardController : MonoBehaviour
         // To be ran on first placement on the board
         // Later might depend on placement and special skills / powers
         
-        GetComponentInParent<PlayerController>().ReduceGold(costPerRound);
+        GetComponentInParent<PlayerController>().ReduceGold(costPerRound - production);
     }
     
 }

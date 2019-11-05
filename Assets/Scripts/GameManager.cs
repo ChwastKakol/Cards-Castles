@@ -26,14 +26,13 @@ public class GameManager : MonoBehaviour
 
         player1Camera = player1Controller.GetCameraTransform();
         player2Camera = player2Controller.GetCameraTransform();
+
+        StartCoroutine(MoveCamera(player1Camera));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.P))
-            SwapTurn();
-
         if (playerOneTurn)
         {
             player1Controller.Turn();
@@ -49,11 +48,13 @@ public class GameManager : MonoBehaviour
         playerOneTurn = !playerOneTurn;
         if (playerOneTurn)
         {
-            StartCoroutine(MoveCamera(player2Camera));
+            Debug.Log("Player One Turn");
+            StartCoroutine(MoveCamera(player1Camera));
         }
         else
         {
-            StartCoroutine(MoveCamera(player1Camera));
+            Debug.Log("Player Two Turn");
+            StartCoroutine(MoveCamera(player2Camera));
         }
     }
 
