@@ -109,7 +109,7 @@ MonoBehaviour:
   attack: 1
   HP: 2
   setupCost: 1
-  costPerRound: 1
+  costPerRound: 2
   production: 1
   position: 0
   layer: 0

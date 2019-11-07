@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
             {
                 cardsOnTheTable[i].RoundlyCost();
             }
+            castleController.RoundlyCost();
             gameManager.SwapTurn();
         }
 
@@ -47,6 +48,12 @@ public class PlayerController : MonoBehaviour
             canSwapTurn = false;
             StartCoroutine(DrawCard());
         }
+
+        if (Input.GetKeyUp(KeyCode.U))
+        {
+            castleController.UpdateCastle();
+        }
+        
     }
 
     void UpdateGoldDisplay()

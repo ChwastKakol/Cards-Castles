@@ -14,10 +14,12 @@ public class CastleController : MonoBehaviour
     public float radialCoefficient = 1;
 
     public List<List<GameObject>> layers = new List<List<GameObject>>();
+    public GameObject updateModule;
+    
+    public int production = 3;
+    private int level = 0;
 
-    //public GameObject card;
-    //private GameObject[] allCards;
-    //public bool isCarringCard = false;
+    private PlayerController _playerController;
     
     void Start()
     {
@@ -32,52 +34,8 @@ public class CastleController : MonoBehaviour
             }
         }
 
-        //allCards = GameObject.FindGameObjectsWithTag("Card");
-        //card = null;
-    }
-
-    private void Update()
-    {
-        /*Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (!isCarringCard)
-        {
-            Physics.Raycast(ray, out hit, 100.0f);
-            if (hit.collider.gameObject.CompareTag("Card") && Input.GetMouseButtonUp(0)) isCarringCard = !isCarringCard;
-            card = hit.collider.gameObject;
-        }
-        else
-        {
-            Physics.Raycast(ray, out hit, 100.0f, LayerMask.GetMask("GameBoard"));
-            Vector3 minimum;
-            int position, layer;
-            card.transform.position = (GetPosition(hit.point, out minimum, out layer, out position) + .3f * Vector3.up);
-            card.transform.LookAt(transform.position);
-            if (Input.GetMouseButtonUp(0))
-            {
-                CardController carriedCardControler = card.GetComponent<CardController>();
-                if (carriedCardControler.availableLayers.Contains(layer))
-                {
-                    Debug.Log(layer.ToString());
-                    isCarringCard = false;
-                    card.transform.position = (minimum + .3f * Vector3.up);
-                    card.transform.LookAt(transform.position);
-                    carriedCardControler.layer = layer;
-                    carriedCardControler.position = position;
-                }
-                
-                GameObject toAttack = findAttackedCard(card, 2.0f);
-                if (!toAttack.Equals(null))
-                {
-                    CardController otherController = toAttack.GetComponent<CardController>();
-                    
-                    carriedCardControler.Attack(otherController);
-                    
-                }
-                card = null;
-            }
-        }*/
+        _playerController = GetComponent<PlayerController>();
+        updateModule.SetActive(false);
     }
 
     GameObject CreateRadialGO(int layer, int position)
@@ -110,20 +68,18 @@ public class CastleController : MonoBehaviour
         return min + .3f * (linearPosition - min);
     }
 
-    /*GameObject findAttackedCard(GameObject attacker, float distanceThreshold)
+    public void RoundlyCost()
     {
-        GameObject closestCard = null;
+        _playerController.ReduceGold(-production);
+    }
 
-        for (int i = 0; i < allCards.Length; i++)
+    public void UpdateCastle()
+    {
+        if (level == 0)
         {
-            if (((allCards[i].transform.position - attacker.transform.position).magnitude < distanceThreshold)
-                && !allCards[i].Equals(attacker))
-            {
-                closestCard = allCards[i];
-                break;
-            }
+            level = 1;
+            updateModule.SetActive(true);
+            production *= 2;
         }
-        
-        return closestCard;
-    }*/
+    }
 }
