@@ -8,6 +8,7 @@ using UnityEngine;
 public class CastleController : MonoBehaviour
 {
     public int nrLayers = 3;
+    public int HP = 20;
     public int[] layerLimits;
 
     public float radialOffset = 1;
@@ -81,5 +82,11 @@ public class CastleController : MonoBehaviour
             updateModule.SetActive(true);
             production *= 2;
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        HP -= damage;
+        if(HP <= 0) GameObject.Destroy(gameObject);
     }
 }

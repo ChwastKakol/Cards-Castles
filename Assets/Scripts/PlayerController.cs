@@ -11,16 +11,17 @@ public class PlayerController : MonoBehaviour
     public Text goldDisplay;
 
     public Transform cameraTransform;
-
+    public PlayerController otherPlayer;
+    
     private GameManager gameManager;
     private DeckController deckController;
     private CastleController castleController;
     
-    private List<CardController> cardsOnTheTable = new List<CardController>();
+    public List<CardController> cardsOnTheTable = new List<CardController>();
     
     int gold = 100;
 
-    private bool canSwapTurn = true;
+    private bool unblocked = true;
     // Update is called once per frame
 
     private void Start()
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour
     public void Turn()
     {
         UpdateGoldDisplay();
-        if (Input.GetKeyUp(KeyCode.T) && canSwapTurn)
+        if (Input.GetKeyUp(KeyCode.T) && unblocked)
         {
             for (int i = 0; i < cardsOnTheTable.Count; i++)
             {
@@ -43,15 +44,21 @@ public class PlayerController : MonoBehaviour
             gameManager.SwapTurn();
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) && unblocked)
         {
-            canSwapTurn = false;
+            unblocked = false;
             StartCoroutine(DrawCard());
         }
 
-        if (Input.GetKeyUp(KeyCode.U))
+        if (Input.GetKeyUp(KeyCode.U) && unblocked)
         {
             castleController.UpdateCastle();
+        }
+
+        if (Input.GetMouseButtonUp(0) && unblocked)
+        {
+            unblocked = false;
+            processMouseClick();
         }
         
     }
@@ -100,17 +107,18 @@ public class PlayerController : MonoBehaviour
             cardsOnTheTable.Add(cardInstance);
 
             cardsOnTheTable.Last().position = rowPosition;                                                               // Updates cards final position, layer
-            cardsOnTheTable.Last().position = layer;
+            cardsOnTheTable.Last().layer = layer;
 
             Transform targetTransform = new GameObject().transform;
             targetTransform.position = minimum + Vector3.up * .5f;
             targetTransform.LookAt(castleController.transform);
-            
-            StartCoroutine(Move(cardsOnTheTable.Last().transform, targetTransform));                    // Sets card on its final positition in 3D space
+
+            yield return StartCoroutine(Move(cardsOnTheTable.Last().transform, targetTransform));                    // Sets card on its final positition in 3D space
             cardsOnTheTable.Last().SetUp();
+            GameObject.Destroy(targetTransform.gameObject);
         }
 
-        canSwapTurn = true;                                                                                              // lifts swap turn blockade
+        unblocked = true;                                                                                              // lifts swap turn blockade
         Debug.Log("Finished Courutine");
     }
 
@@ -125,4 +133,83 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
     }
+
+    IEnumerator Attack(CardController attacker)
+    {
+        Transform originalTransform = new GameObject().transform;
+        originalTransform.position = attacker.transform.position;
+        originalTransform.rotation = attacker.transform.rotation;
+
+        while (true)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            Physics.Raycast(ray, out hit, 100.0f, LayerMask.GetMask("GameBoard"));
+
+            Vector3 newPosition = originalTransform.position - .3f * (originalTransform.position - hit.point); 
+            attacker.transform.position = newPosition;
+            attacker.transform.LookAt(transform);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                CardController attacked = hit.transform.gameObject.GetComponent<CardController>();
+                if (otherPlayer.cardsOnTheTable.Contains(attacked) && (Input.GetMouseButtonUp(1)) &&
+                    attacked.layer == otherPlayer.getAttackLayer())
+                {
+                    Transform targetTransform = new GameObject().transform;
+                    targetTransform.position = attacked.gameObject.transform.position;
+                    targetTransform.LookAt(transform);
+
+                    yield return StartCoroutine(Move(attacker.gameObject.transform, targetTransform));
+                    attacker.Attack(attacked);
+
+                    GameObject.Destroy(targetTransform.gameObject);
+                    break;
+                }
+                /*else if(otherPlayer == hit.transform.GetComponentInParent<PlayerController>() && Input.GetMouseButtonUp(1))
+                {
+                    Debug.Log("Attacking castle");
+                    hit.transform.gameObject.GetComponent<CastleController>().TakeDamage(attacker.attack);
+                }*/
+                
+                else if(Input.GetKeyUp(KeyCode.Escape))
+                    break;
+            }
+            
+            yield return null;
+        }
+
+        yield return null; // gives time fpr destruction of attacking card
+        if (attacker != null)
+        {
+            Debug.Log("Attacker is not null");
+            yield return StartCoroutine(Move(attacker.transform, originalTransform));
+        }
+        GameObject.Destroy(originalTransform.gameObject);
+        unblocked = true;
+    }
+    
+    void processMouseClick()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit);
+        CardController grabed = hit.transform.gameObject.GetComponent<CardController>();
+        
+        if (cardsOnTheTable.Contains(grabed))
+        {
+            StartCoroutine(Attack(grabed));
+        }
+    }
+
+    public int getAttackLayer()
+    {
+        int max = 0;
+        for (int i = 0; i < cardsOnTheTable.Count; i++)
+        {
+            if (cardsOnTheTable[i].layer > max) max = cardsOnTheTable[i].layer;
+        }
+        return max;
+    }
+    
 }

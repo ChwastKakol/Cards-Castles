@@ -357,6 +357,11 @@ PrefabInstance:
       propertyPath: goldDisplay
       value: 
       objectReference: {fileID: 1412724823}
+    - target: {fileID: 3955418741620836500, guid: 960dc1d892ab1c84a98049a34d04ce74,
+        type: 3}
+      propertyPath: otherPlayer
+      value: 
+      objectReference: {fileID: 2056472897}
     - target: {fileID: 6771517702617764207, guid: 960dc1d892ab1c84a98049a34d04ce74,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -375,6 +380,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 512214065}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &610341813 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3955418741620836500, guid: 960dc1d892ab1c84a98049a34d04ce74,
+    type: 3}
+  m_PrefabInstance: {fileID: 512214065}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610341811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afffb683c8555de48a9e668b02c81aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &610341814 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3955418741620836586, guid: 960dc1d892ab1c84a98049a34d04ce74,
@@ -857,6 +874,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3955418743406379477}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2056472897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3955418741620836500, guid: 960dc1d892ab1c84a98049a34d04ce74,
+    type: 3}
+  m_PrefabInstance: {fileID: 3955418743406379477}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056472894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afffb683c8555de48a9e668b02c81aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3955418743406379477
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -929,5 +958,10 @@ PrefabInstance:
       propertyPath: goldDisplay
       value: 
       objectReference: {fileID: 1412724823}
+    - target: {fileID: 3955418741620836500, guid: 960dc1d892ab1c84a98049a34d04ce74,
+        type: 3}
+      propertyPath: otherPlayer
+      value: 
+      objectReference: {fileID: 610341813}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 960dc1d892ab1c84a98049a34d04ce74, type: 3}

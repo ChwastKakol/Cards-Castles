@@ -17,11 +17,12 @@ public class CardController : MonoBehaviour
 
     public float attackTime = .2f;
     
-    public CardController cardToAttack;
+    public PlayerController playerController;
     
     public void Start()
     {
         availableLayers = new int[]{1,2};
+        playerController = GetComponentInParent<PlayerController>();
     }
 
     private void Update()
@@ -42,13 +43,35 @@ public class CardController : MonoBehaviour
     {
         // Later to add fireworks here
         HP -= damage;
-        if(HP <= 0) Destroy(gameObject);
+        if (HP <= 0)
+        {
+            //Destroy(gameObject);
+            DestroySelf();
+        }
     }
 
     private void OnDestroy()
     {
         // Later to add fireworks here
+        /*if (playerController.cardsOnTheTable.Contains(this))
+        {
+            playerController.cardsOnTheTable.Remove(this);
+        }*/
+
         Debug.Log("Card has been destroyed");
+    }
+
+    public void DestroySelf()
+    {
+        Debug.Log(this.ToString());
+        if(playerController == null) Debug.Log("red alert");
+        if (playerController.cardsOnTheTable.Contains(this))
+        {
+            Debug.Log(this.ToString());
+            playerController.cardsOnTheTable.Remove(this);
+        }
+        Debug.Log(this.ToString());
+        GameObject.Destroy(gameObject);
     }
 
     public void SetUp()
@@ -57,9 +80,6 @@ public class CardController : MonoBehaviour
         // Later might depend on placement and special skills / powers
         
         GetComponentInParent<PlayerController>().ReduceGold(setupCost);
-        /*CastleController castleController = GetComponentInParent<CastleController>();
-        castleController.isCarringCard = true;
-        castleController.card = gameObject;*/
     }
 
     public void RoundlyCost()
