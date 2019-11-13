@@ -16,19 +16,20 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager;
     private DeckController deckController;
     private CastleController castleController;
+    private CastleController enemyCastle;
     
     public List<CardController> cardsOnTheTable = new List<CardController>();
     
     int gold = 100;
 
     private bool unblocked = true;
-    // Update is called once per frame
 
     private void Start()
     {
         gameManager = GetComponentInParent<GameManager>();
         deckController = GetComponent<DeckController>();
         castleController = GetComponent<CastleController>();
+        enemyCastle = otherPlayer.gameObject.GetComponent<CastleController>();
     }
 
     public void Turn()
@@ -166,11 +167,13 @@ public class PlayerController : MonoBehaviour
                     GameObject.Destroy(targetTransform.gameObject);
                     break;
                 }
-                /*else if(otherPlayer == hit.transform.GetComponentInParent<PlayerController>() && Input.GetMouseButtonUp(1))
+                else if(enemyCastle.hitCastle(hit.transform) && Input.GetMouseButtonUp(1))
                 {
                     Debug.Log("Attacking castle");
-                    hit.transform.gameObject.GetComponent<CastleController>().TakeDamage(attacker.attack);
-                }*/
+                    yield return StartCoroutine(Move(attacker.transform, enemyCastle.transform));
+                    enemyCastle.TakeDamage(attacker.attack);
+                    break;
+                }
                 
                 else if(Input.GetKeyUp(KeyCode.Escape))
                     break;

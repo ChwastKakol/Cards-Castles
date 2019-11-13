@@ -4,30 +4,32 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CastleController : MonoBehaviour
 {
     public int nrLayers = 3;
     public int HP = 20;
-    public int[] layerLimits;
+    public int[] layerLimits = {5, 5, 7};
 
     public float radialOffset = 1;
     public float radialCoefficient = 1;
 
     public List<List<GameObject>> layers = new List<List<GameObject>>();
-    public GameObject updateModule;
+    public GameObject updateModule1;
+    public GameObject updateModule2;
     
     public int production = 3;
     private int level = 0;
 
     private PlayerController _playerController;
+    private Collider[] castleElements;
     
     void Start()
     {
-        layerLimits = new int[nrLayers];
         for(int i = 0; i < nrLayers; i++)
         {
-            layerLimits[i] = 2 * (i+1) + 1;
+            //layerLimits[i] = 2 * (i+1) + 1;
             layers.Add(new List<GameObject>());
             for(int j = 0; j < layerLimits[i]; j++)
             {
@@ -35,8 +37,10 @@ public class CastleController : MonoBehaviour
             }
         }
 
+        castleElements = GetComponentsInChildren<Collider>();
         _playerController = GetComponent<PlayerController>();
-        updateModule.SetActive(false);
+        updateModule1.SetActive(false);
+        updateModule2.SetActive(false);
     }
 
     GameObject CreateRadialGO(int layer, int position)
@@ -79,8 +83,14 @@ public class CastleController : MonoBehaviour
         if (level == 0)
         {
             level = 1;
-            updateModule.SetActive(true);
+            updateModule1.SetActive(true);
             production *= 2;
+        }
+        else if (level == 1) 
+        {
+            updateModule2.SetActive(true);
+            production *= 2;
+            level = 2;
         }
     }
 
@@ -89,4 +99,14 @@ public class CastleController : MonoBehaviour
         HP -= damage;
         if(HP <= 0) GameObject.Destroy(gameObject);
     }
+
+    public bool hitCastle(Transform hit)
+    {
+        for (int i = 0; i < castleElements.Length; i++)
+        {
+            if (hit == castleElements[i].transform) return true;
+        }
+
+        return false;
+    } 
 }
