@@ -18,11 +18,17 @@ public class CardController : MonoBehaviour
     public float attackTime = .2f;
     
     public PlayerController playerController;
+
+    public TextMesh HPIndicator;
+    public TextMesh AttackIndicator;
+    public TextMesh CostsIndicator;
+    public TextMesh ProductionIndicator;
     
     public void Start()
     {
         availableLayers = new int[]{1,2};
         playerController = GetComponentInParent<PlayerController>();
+        UpdateIndicators();
     }
 
     private void Update()
@@ -43,6 +49,7 @@ public class CardController : MonoBehaviour
     {
         // Later to add fireworks here
         HP -= damage;
+        UpdateIndicators();
         if (HP <= 0)
         {
             //Destroy(gameObject);
@@ -88,6 +95,14 @@ public class CardController : MonoBehaviour
         // Later might depend on placement and special skills / powers
         
         GetComponentInParent<PlayerController>().ReduceGold(costPerRound - production);
+    }
+
+    void UpdateIndicators()
+    {
+        HPIndicator.text = HP.ToString();
+        AttackIndicator.text = attack.ToString();
+        ProductionIndicator.text = production.ToString();
+        CostsIndicator.text = setupCost.ToString() + "/" + costPerRound.ToString();
     }
     
 }
