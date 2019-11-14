@@ -6,14 +6,14 @@ using UnityEngine;
 public class DeckController : MonoBehaviour
 {
 
-    public List<GameObject> cards = new List<GameObject>();
+    public List<CardController> cards = new List<CardController>();
     public GameObject card;
     private void Start()
     {
-        for (int i = 0; i < 4; i++)
+        /*for (int i = 0; i < 4; i++)
         {
             cards.Add(card);
-        }
+        }*/
     }
 
     public bool HasCards()
@@ -21,11 +21,11 @@ public class DeckController : MonoBehaviour
         return (cards.Count != 0);
     }
     
-    public GameObject DrawCardFromTop()
+    public CardController DrawCardFromTop()
     {
         if (cards.Count != 0)
         {
-            GameObject card = cards[cards.Count - 1];
+            CardController card = cards[cards.Count - 1];
             cards.RemoveAt(cards.Count - 1);
             return card;
         }

@@ -11,6 +11,7 @@
           <e p="CastleController.cs" t="Include" />
           <e p="DeckController.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
+          <e p="HandController.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />
         </e>
       </e>

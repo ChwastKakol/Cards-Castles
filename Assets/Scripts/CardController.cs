@@ -26,7 +26,7 @@ public class CardController : MonoBehaviour
     
     public void Start()
     {
-        availableLayers = new int[]{1,2};
+        //availableLayers = new int[]{1,2};
         playerController = GetComponentInParent<PlayerController>();
         UpdateIndicators();
     }

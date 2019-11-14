@@ -85,8 +85,8 @@ public class PlayerController : MonoBehaviour
         
         if (deckController.HasCards())
         {
-            GameObject card = deckController.DrawCardFromTop();
-            CardController cardInstance = Instantiate(card, transform).GetComponent<CardController>();
+            CardController card = deckController.DrawCardFromTop();
+            CardController cardInstance = Instantiate(card, transform);//.GetComponent<CardController>();
             cardInstance.transform.localPosition = Vector3.zero;
 
             Vector3 minimum = Vector3.zero;                                            
