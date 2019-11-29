@@ -11,6 +11,8 @@ public class CardController : MonoBehaviour
     public int setupCost = 1;
     public int costPerRound = 1;
     public int production = 1;
+
+    public string m_name;
     
     public int position, layer;
     public int[] availableLayers;
@@ -23,6 +25,9 @@ public class CardController : MonoBehaviour
     public TextMesh AttackIndicator;
     public TextMesh CostsIndicator;
     public TextMesh ProductionIndicator;
+    public TextMesh NameIdicator;
+
+    [SerializeField] private int ID = Int32.MinValue;
     
     public void Start()
     {
@@ -103,6 +108,22 @@ public class CardController : MonoBehaviour
         AttackIndicator.text = attack.ToString();
         ProductionIndicator.text = production.ToString();
         CostsIndicator.text = setupCost.ToString() + "/" + costPerRound.ToString();
+        NameIdicator.text = m_name;
     }
-    
+
+    public int[] GetParameters()
+    {
+        return new int[] {HP, attack, setupCost, costPerRound, production};
+    }
+
+    public string GetName()
+    {
+        return m_name;
+    }
+
+    public int Id
+    {
+        get => ID;
+        set => ID = (ID == Int32.MinValue ? value : ID);
+    }
 }

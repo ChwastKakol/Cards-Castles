@@ -306,6 +306,7 @@ MonoBehaviour:
   setupCost: 1
   costPerRound: 2
   production: 1
+  m_name: 
   position: 0
   layer: 0
   availableLayers: 0000000002000000
@@ -315,6 +316,8 @@ MonoBehaviour:
   AttackIndicator: {fileID: 6217542545109405045}
   CostsIndicator: {fileID: 4308941556525716624}
   ProductionIndicator: {fileID: 9135094609937714548}
+  NameIdicator: {fileID: 5083861833826631164}
+  ID: -2147483648
 --- !u!222 &6188432956928721915
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
         deckController = GetComponent<DeckController>();
         castleController = GetComponent<CastleController>();
         enemyCastle = otherPlayer.gameObject.GetComponent<CastleController>();
+        deckController.Reshuffle();
     }
 
     public void Turn()

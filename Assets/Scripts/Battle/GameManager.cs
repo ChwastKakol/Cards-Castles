@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         camera = Camera.main;
+/*
+
+        if (SceneManager.GetSceneByName("OpenMenu").isLoaded)
+            SceneManager.UnloadSceneAsync("OpenMenu");*/
+        
         player1Controller = player1.GetComponent<PlayerController>();
         player2Controller = player2.GetComponent<PlayerController>();
 
@@ -28,6 +34,7 @@ public class GameManager : MonoBehaviour
         player2Camera = player2Controller.GetCameraTransform();
 
         StartCoroutine(MoveCamera(player1Camera));
+        playerOneTurn = true;
     }
 
     // Update is called once per frame

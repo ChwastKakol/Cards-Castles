@@ -42,6 +42,16 @@ PrefabInstance:
       propertyPath: availableLayers.Array.data[0]
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4200286120871664515, guid: 2c0c81179ace7164a87fcac35a81e75f,
+        type: 3}
+      propertyPath: m_name
+      value: Strzelcy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5083861833826631164, guid: 2c0c81179ace7164a87fcac35a81e75f,
+        type: 3}
+      propertyPath: m_Text
+      value: Strzelcy
+      objectReference: {fileID: 0}
     - target: {fileID: 303641911112995532, guid: 2c0c81179ace7164a87fcac35a81e75f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -146,11 +156,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5083861833826631164, guid: 2c0c81179ace7164a87fcac35a81e75f,
-        type: 3}
-      propertyPath: m_Text
-      value: Strzelcy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c0c81179ace7164a87fcac35a81e75f, type: 3}
