@@ -7,30 +7,25 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject card;
     public Text goldDisplay;
 
     public Transform cameraTransform;
     public PlayerController otherPlayer;
+    public HandController handController;
+    public List<CardController> cardsOnTheTable = new List<CardController>();
     
     private GameManager gameManager;
-    private DeckController deckController;
     private CastleController castleController;
     private CastleController enemyCastle;
     
-    public List<CardController> cardsOnTheTable = new List<CardController>();
-    
-    int gold = 100;
-
+    private int gold = 100;
     private bool unblocked = true;
 
     private void Start()
     {
         gameManager = GetComponentInParent<GameManager>();
-        deckController = GetComponent<DeckController>();
         castleController = GetComponent<CastleController>();
         enemyCastle = otherPlayer.gameObject.GetComponent<CastleController>();
-        deckController.Reshuffle();
     }
 
     public void Turn()
@@ -38,6 +33,7 @@ public class PlayerController : MonoBehaviour
         UpdateGoldDisplay();
         if (Input.GetKeyUp(KeyCode.T) && unblocked)
         {
+            handController.Turn();
             for (int i = 0; i < cardsOnTheTable.Count; i++)
             {
                 cardsOnTheTable[i].RoundlyCost();
@@ -45,13 +41,7 @@ public class PlayerController : MonoBehaviour
             castleController.RoundlyCost();
             gameManager.SwapTurn();
         }
-
-        if (Input.GetKeyUp(KeyCode.Space) && unblocked)
-        {
-            unblocked = false;
-            StartCoroutine(DrawCard());
-        }
-
+        
         if (Input.GetKeyUp(KeyCode.U) && unblocked)
         {
             castleController.UpdateCastle();
@@ -80,45 +70,48 @@ public class PlayerController : MonoBehaviour
         return cameraTransform;
     }
 
-    IEnumerator DrawCard()
+    IEnumerator Setup(CardController cardInstance)
     {
         Debug.Log("Started Courutine");
         
-        if (deckController.HasCards())
-        {
-            CardController card = deckController.DrawCardFromTop();
-            CardController cardInstance = Instantiate(card, transform);//.GetComponent<CardController>();
-            cardInstance.transform.localPosition = Vector3.zero;
+        //if (deckController.HasCards())
+        //{
+            //CardController card = deckController.DrawCardFromTop();
+            //CardController cardInstance = Instantiate(card, transform);//.GetComponent<CardController>();
+        cardInstance.transform.parent = transform;
+        cardInstance.transform.localPosition = Vector3.zero;
 
-            Vector3 minimum = Vector3.zero;                                            
-            int rowPosition = 0, layer = cardInstance.availableLayers[0];
-             
-            while (!(Input.GetMouseButtonUp(1) && cardInstance.availableLayers.Contains(layer)))                         // Performs carrying until card is placed in correct row,                           
-            {                                                                                                            // updates cards, position and row
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit raycastHit;
-                Physics.Raycast(ray, out raycastHit, 100.0f, LayerMask.GetMask("GameBoard"));
+        Vector3 minimum = Vector3.zero;                                            
+        int rowPosition = 0, layer = cardInstance.availableLayers[0];
+         
+        while (!(Input.GetMouseButtonUp(1) && cardInstance.availableLayers.Contains(layer)))                         // Performs carrying until card is placed in correct row,                           
+        {                                                                                                            // updates cards, position and row
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycastHit;
+            Physics.Raycast(ray, out raycastHit, 100.0f, LayerMask.GetMask("GameBoard"));
 
-                Vector3 playerPosition = castleController.GetPosition(raycastHit.point, out minimum, out layer, out rowPosition);
-                playerPosition.y = .3f;
-                cardInstance.transform.position = playerPosition;
-                cardInstance.transform.LookAt(castleController.transform);
-                yield return null;
-            }
-            
-            cardsOnTheTable.Add(cardInstance);
-
-            cardsOnTheTable.Last().position = rowPosition;                                                               // Updates cards final position, layer
-            cardsOnTheTable.Last().layer = layer;
-
-            Transform targetTransform = new GameObject().transform;
-            targetTransform.position = minimum + Vector3.up * .5f;
-            targetTransform.LookAt(castleController.transform);
-
-            yield return StartCoroutine(Move(cardsOnTheTable.Last().transform, targetTransform));                    // Sets card on its final positition in 3D space
-            cardsOnTheTable.Last().SetUp();
-            GameObject.Destroy(targetTransform.gameObject);
+            Vector3 playerPosition = castleController.GetPosition(raycastHit.point, out minimum, out layer, out rowPosition);
+            playerPosition.y = .3f;
+            cardInstance.transform.position = playerPosition;
+            cardInstance.transform.LookAt(castleController.transform);
+            yield return null;
         }
+        
+        cardsOnTheTable.Add(cardInstance);
+
+        cardsOnTheTable.Last().position = rowPosition;                                                               // Updates cards final position, layer
+        cardsOnTheTable.Last().layer = layer;
+
+        Transform targetTransform = new GameObject().transform;
+        targetTransform.position = minimum + Vector3.up * .5f;
+        targetTransform.LookAt(castleController.transform);
+
+        // here stil works
+        
+        yield return StartCoroutine(Move(cardsOnTheTable.Last().transform, targetTransform));                    // Sets card on its final positition in 3D space
+        cardsOnTheTable.Last().SetUp();
+        GameObject.Destroy(targetTransform.gameObject);
+        //}
 
         unblocked = true;                                                                                              // lifts swap turn blockade
         Debug.Log("Finished Courutine");
@@ -203,6 +196,22 @@ public class PlayerController : MonoBehaviour
         if (cardsOnTheTable.Contains(grabed))
         {
             StartCoroutine(Attack(grabed));
+        }
+        else
+        {
+            grabed = handController.OnClick(hit);
+            if (grabed)
+            {
+                if (grabed.setupCost <= gold)
+                {
+                    handController.RemoveCard(grabed);
+                    StartCoroutine(Setup(grabed));
+                }
+                else
+                {
+                    Debug.Log("Too little gold to setup this card");
+                }
+            }
         }
     }
 

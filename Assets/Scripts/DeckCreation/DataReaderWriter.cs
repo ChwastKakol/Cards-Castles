@@ -17,6 +17,7 @@ public class DataReaderWriter : MonoBehaviour
     private BinaryReader _reader;
 
     private List<Deck> _decks;
+    private const int _version = 0;
 
     private void Awake()
     {
@@ -46,7 +47,7 @@ public class DataReaderWriter : MonoBehaviour
         }
         for (int i = 0; i < count; i++)
         {
-            _decks.Add(ReadDeck());
+            _decks.Add(ReadDeck(_version));
         }
         //_writer = new BinaryWriter(File.Open("dataBase.txt", FileMode.Open));
     }
@@ -92,17 +93,21 @@ public class DataReaderWriter : MonoBehaviour
         }
     }
 
-    Deck ReadDeck()
+    Deck ReadDeck(int version)
     {
+        
         Deck deck = new Deck();
-        deck.deckName = _reader.ReadString();
-        deck.side = _reader.ReadInt32();
-        
-        int size = _reader.ReadInt32();
-        
-        for (int i = 0; i < size; i++)
+        if (version == 0)
         {
-            deck.cardID.Add(_reader.ReadInt32());
+            deck.deckName = _reader.ReadString();
+            deck.side = _reader.ReadInt32();
+
+            int size = _reader.ReadInt32();
+
+            for (int i = 0; i < size; i++)
+            {
+                deck.cardID.Add(_reader.ReadInt32());
+            }
         }
 
         return deck;
@@ -129,11 +134,29 @@ public class DataReaderWriter : MonoBehaviour
     {
         _reader.Close();
         _writer = new BinaryWriter(File.Open("database.txt", FileMode.Open));
+        _writer.Write(_version);
         _writer.Write(_decks.Count);
         for (int i = 0; i < _decks.Count; i++)
         {
             SaveDeck(_decks[i]);
         }
         _writer.Close();
+    }
+
+    List<Deck> ReadAllDecks()
+    {
+        List<Deck> decks = new List<Deck>();
+        
+        int version = _reader.ReadInt32();
+        if (version == 0)
+        {
+            int count = _reader.ReadInt32();
+            for (int i = 0; i < count; i++)
+            {
+                decks.Add(ReadDeck(version));
+            }
+        }
+
+        return decks;
     }
 }

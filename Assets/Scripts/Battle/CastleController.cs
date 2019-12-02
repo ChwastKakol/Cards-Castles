@@ -58,7 +58,7 @@ public class CastleController : MonoBehaviour
         float radious = (linearPosition - transform.position).magnitude;
         layer = Math.Min((int)((radious - radialOffset) / radialCoefficient), nrLayers-1);
         Vector3 min = layers[layer][0].transform.position;
-        position = -1;
+        position = 0; // formally -1
         for (int i = 0; i < layers[layer].Count(); i++)
         {
             if ((linearPosition - layers[layer][i].transform.position).sqrMagnitude <

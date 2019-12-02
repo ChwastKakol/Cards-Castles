@@ -1,5 +1,66 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &632321514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 632321517}
+  - component: {fileID: 632321516}
+  - component: {fileID: 632321515}
+  m_Layer: 0
+  m_Name: Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &632321517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632321514}
+  m_LocalRotation: {x: -0, y: -0.89875585, z: 0.43844956, w: 0}
+  m_LocalPosition: {x: 0, y: -0.3, z: -3.69}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3955418741620836586}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 52.01, y: 0, z: 0}
+--- !u!114 &632321516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632321514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e2da607c88ce24e87eb108507ee6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckController: {fileID: 632321515}
+  initialCardsCount: 3
+  radius: 4
+--- !u!114 &632321515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632321514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444ae509edb6cff4da60fdc0b05b92db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardsFactory: {fileID: 0}
+  cards: []
 --- !u!1 &2418801188298884948
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,6 +158,7 @@ Transform:
   - {fileID: 4192530220177356349}
   - {fileID: 5446070155124412120}
   - {fileID: 4784580554370290360}
+  - {fileID: 632321517}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -132,10 +194,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afffb683c8555de48a9e668b02c81aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 4200286120871664518, guid: 2c0c81179ace7164a87fcac35a81e75f, type: 3}
   goldDisplay: {fileID: 0}
   cameraTransform: {fileID: 4192530220177356349}
   otherPlayer: {fileID: 0}
+  handController: {fileID: 632321516}
   cardsOnTheTable: []
 --- !u!114 &2056472898
 MonoBehaviour:
@@ -149,11 +211,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 444ae509edb6cff4da60fdc0b05b92db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardsFactory: {fileID: 0}
   cards:
   - {fileID: 5184156759413679562, guid: b64843a38eb36424997524b7ca5215b2, type: 3}
   - {fileID: 3002484286547704480, guid: ca6acad0dbee8a340a1e043c2a48033c, type: 3}
   - {fileID: 6061826327620920471, guid: e5599769771f30841b8f85353b38398c, type: 3}
-  card: {fileID: 4200286120871664518, guid: 2c0c81179ace7164a87fcac35a81e75f, type: 3}
 --- !u!23 &2056472900
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -250,7 +312,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f341f908a0604f24b9f2f27e1ff0d087, type: 2}
+  - {fileID: 2100000, guid: 232381a0c33173d4ea902c5e967ded27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -342,7 +404,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f341f908a0604f24b9f2f27e1ff0d087, type: 2}
+  - {fileID: 2100000, guid: 232381a0c33173d4ea902c5e967ded27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -447,7 +509,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f341f908a0604f24b9f2f27e1ff0d087, type: 2}
+  - {fileID: 2100000, guid: 232381a0c33173d4ea902c5e967ded27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -567,7 +629,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f341f908a0604f24b9f2f27e1ff0d087, type: 2}
+      objectReference: {fileID: 2100000, guid: 232381a0c33173d4ea902c5e967ded27, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceb743aa0b10cc74ab8e6dde7a3712a6, type: 3}
 --- !u!1 &5027588890976789939 stripped

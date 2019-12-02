@@ -28,6 +28,9 @@ public class CardController : MonoBehaviour
     public TextMesh NameIdicator;
 
     [SerializeField] private int ID = Int32.MinValue;
+
+    private SpecialSkils.SpecialSkillOnAttack _specialSkillOnAttack;
+    private SpecialSkils.SpecialSkillOnDraw _specialSkillOnDraw;
     
     public void Start()
     {
@@ -47,6 +50,9 @@ public class CardController : MonoBehaviour
 
         Debug.Log("Attacking");
         other.TakeDamage(attack);
+
+        if (_specialSkillOnAttack != null) _specialSkillOnAttack();
+
         TakeDamage(other.attack);
     }
 
@@ -90,8 +96,8 @@ public class CardController : MonoBehaviour
     {
         // To be ran on first placement on the board
         // Later might depend on placement and special skills / powers
-        
         GetComponentInParent<PlayerController>().ReduceGold(setupCost);
+        if(_specialSkillOnDraw != null) _specialSkillOnDraw();
     }
 
     public void RoundlyCost()
@@ -125,5 +131,15 @@ public class CardController : MonoBehaviour
     {
         get => ID;
         set => ID = (ID == Int32.MinValue ? value : ID);
+    }
+
+    public void AddSpecialSkillOnAttack(SpecialSkils.SpecialSkillOnAttack skillOnAttack)
+    {
+        _specialSkillOnAttack += skillOnAttack;
+    }
+
+    public void AddSpecialSkillOnDraw(SpecialSkils.SpecialSkillOnDraw specialSkillOnDraw)
+    {
+        _specialSkillOnDraw += specialSkillOnDraw;
     }
 }
