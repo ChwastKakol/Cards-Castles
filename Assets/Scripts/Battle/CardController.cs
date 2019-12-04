@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +13,7 @@ public class CardController : MonoBehaviour
     public int production = 1;
 
     public string m_name;
+    public string m_description;
     
     public int position, layer;
     public int[] availableLayers;
@@ -26,11 +27,12 @@ public class CardController : MonoBehaviour
     public TextMesh CostsIndicator;
     public TextMesh ProductionIndicator;
     public TextMesh NameIdicator;
+    public TextMesh DescriptionIndicator;
 
     [SerializeField] private int ID = Int32.MinValue;
 
     private SpecialSkils.SpecialSkillOnAttack _specialSkillOnAttack;
-    private SpecialSkils.SpecialSkillOnDraw _specialSkillOnDraw;
+    private SpecialSkils.SpecialSkillOnPlay _specialSkillOnPlay;
     
     public void Start()
     {
@@ -97,7 +99,7 @@ public class CardController : MonoBehaviour
         // To be ran on first placement on the board
         // Later might depend on placement and special skills / powers
         GetComponentInParent<PlayerController>().ReduceGold(setupCost);
-        if(_specialSkillOnDraw != null) _specialSkillOnDraw();
+        if(_specialSkillOnPlay != null) _specialSkillOnPlay();
     }
 
     public void RoundlyCost()
@@ -115,6 +117,7 @@ public class CardController : MonoBehaviour
         ProductionIndicator.text = production.ToString();
         CostsIndicator.text = setupCost.ToString() + "/" + costPerRound.ToString();
         NameIdicator.text = m_name;
+        DescriptionIndicator.text = m_description;
     }
 
     public int[] GetParameters()
@@ -125,6 +128,11 @@ public class CardController : MonoBehaviour
     public string GetName()
     {
         return m_name;
+    }
+    
+    public string GetDescription()
+    {
+        return m_description;
     }
 
     public int Id
@@ -138,8 +146,8 @@ public class CardController : MonoBehaviour
         _specialSkillOnAttack += skillOnAttack;
     }
 
-    public void AddSpecialSkillOnDraw(SpecialSkils.SpecialSkillOnDraw specialSkillOnDraw)
+    public void AddSpecialSkillOnPlay(SpecialSkils.SpecialSkillOnPlay specialSkillOnPlay)
     {
-        _specialSkillOnDraw += specialSkillOnDraw;
+        _specialSkillOnPlay += specialSkillOnPlay;
     }
 }

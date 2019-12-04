@@ -7,16 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1074066026785424898, guid: 30431dbaced5ef54e8165693d893bab0,
-        type: 3}
-      propertyPath: callsTest
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074066026785424898, guid: 30431dbaced5ef54e8165693d893bab0,
-        type: 3}
-      propertyPath: callsAntotherTest
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7593921987120266266, guid: 30431dbaced5ef54e8165693d893bab0,
         type: 3}
       propertyPath: m_Name
@@ -56,6 +46,11 @@ PrefabInstance:
         type: 3}
       propertyPath: ID
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359746066214044728, guid: 30431dbaced5ef54e8165693d893bab0,
+        type: 3}
+      propertyPath: m_description
+      value: "By\u0142 bezrobotny, a teraz narzeka na emerytur\u0119"
       objectReference: {fileID: 0}
     - target: {fileID: 7426848053520245107, guid: 30431dbaced5ef54e8165693d893bab0,
         type: 3}
@@ -110,6 +105,16 @@ PrefabInstance:
     - target: {fileID: 7426848053520245107, guid: 30431dbaced5ef54e8165693d893bab0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074066026785424898, guid: 30431dbaced5ef54e8165693d893bab0,
+        type: 3}
+      propertyPath: callsTest
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074066026785424898, guid: 30431dbaced5ef54e8165693d893bab0,
+        type: 3}
+      propertyPath: callsAntotherTest
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

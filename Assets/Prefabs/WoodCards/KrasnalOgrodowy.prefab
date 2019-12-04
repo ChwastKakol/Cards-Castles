@@ -7,11 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1074066026785424898, guid: 30431dbaced5ef54e8165693d893bab0,
-        type: 3}
-      propertyPath: callsTest
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7593921987120266266, guid: 30431dbaced5ef54e8165693d893bab0,
         type: 3}
       propertyPath: m_Name
@@ -62,6 +57,16 @@ PrefabInstance:
       propertyPath: ID
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1359746066214044728, guid: 30431dbaced5ef54e8165693d893bab0,
+        type: 3}
+      propertyPath: m_description
+      value: "Na imi\u0119 mu Gnomeo"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359746066214044728, guid: 30431dbaced5ef54e8165693d893bab0,
+        type: 3}
+      propertyPath: DescriptionIndicator
+      value: 
+      objectReference: {fileID: 8505624095900812300}
     - target: {fileID: 7426848053520245107, guid: 30431dbaced5ef54e8165693d893bab0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -117,5 +122,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1074066026785424898, guid: 30431dbaced5ef54e8165693d893bab0,
+        type: 3}
+      propertyPath: callsTest
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074066026785424898, guid: 30431dbaced5ef54e8165693d893bab0,
+        type: 3}
+      propertyPath: callsAntotherTest
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074066026785424898, guid: 30431dbaced5ef54e8165693d893bab0,
+        type: 3}
+      propertyPath: insultPLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074066026785424898, guid: 30431dbaced5ef54e8165693d893bab0,
+        type: 3}
+      propertyPath: insultPlayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30431dbaced5ef54e8165693d893bab0, type: 3}
+--- !u!102 &8505624095900812300 stripped
+TextMesh:
+  m_CorrespondingSourceObject: {fileID: 4250354972512358078, guid: 30431dbaced5ef54e8165693d893bab0,
+    type: 3}
+  m_PrefabInstance: {fileID: 5545698438408161970}
+  m_PrefabAsset: {fileID: 0}

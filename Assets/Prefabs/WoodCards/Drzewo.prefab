@@ -47,6 +47,11 @@ PrefabInstance:
       propertyPath: availableLayers.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1359746066214044728, guid: 30431dbaced5ef54e8165693d893bab0,
+        type: 3}
+      propertyPath: m_description
+      value: Akurat ta sosna nie jest rozdarta
+      objectReference: {fileID: 0}
     - target: {fileID: 7426848053520245107, guid: 30431dbaced5ef54e8165693d893bab0,
         type: 3}
       propertyPath: m_LocalPosition.x

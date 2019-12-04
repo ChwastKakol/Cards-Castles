@@ -9,24 +9,24 @@ public class SpecialSkils : MonoBehaviour
     private CardController _card;
 
     public delegate void SpecialSkillOnAttack();
-    public delegate void SpecialSkillOnDraw();
+    public delegate void SpecialSkillOnPlay();
 
     public bool callsTest;
     public bool callsAntotherTest;
-    public bool insultPLayer;
+    public bool insultPlayer;
     
     private void Awake()
     {
         _card = GetComponent<CardController>();
         if(callsTest) _card.AddSpecialSkillOnAttack(CallsTestFunc);
         if(callsAntotherTest) _card.AddSpecialSkillOnAttack(CallsAnotherTestFunc);
-        if(insultPLayer) _card.AddSpecialSkillOnDraw(InsultPlayerFunc);
+        if(insultPlayer) _card.AddSpecialSkillOnPlay(InsultPlayerFunc);
         
     }
 
     void CallsTestFunc()
     {
-        Debug.Log("HEy, i'm called - its Test");
+        Debug.Log("Hey, i'm called - its Test");
     }
 
     void CallsAnotherTestFunc()
